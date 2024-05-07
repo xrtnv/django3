@@ -23,9 +23,9 @@ class Product(models.Model):
                                  help_text="Введите категорию",
                                  null=True, blank=True, related_name="products")
     price = models.CharField(verbose_name='Цена', help_text="Введите цену")
-    create_at = models.DateTimeField(auto_now_add=True, blank=False, null=False, verbose_name='Дата создания',
+    create_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата создания',
                                      help_text="Введите дату создания")
-    updated_at = models.DateTimeField(auto_now=True, blank=False, null=False, verbose_name='Дата последнего изменения',
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата последнего изменения',
                                       help_text="Введите дату создания последнего изменения")
 
     class Meta:
