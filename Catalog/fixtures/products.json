@@ -1,0 +1,54 @@
+[
+  {
+    "model": "Catalog.product",
+    "pk": 9,
+    "fields": {
+      "name": "Наушники",
+      "description": "Наушники",
+      "picture": "shablon.webp",
+      "category": 10,
+      "price": "11111",
+      "create_at": "2024-05-07T19:08:39.134Z",
+      "updated_at": "2024-05-07T19:08:39.134Z"
+    }
+  },
+  {
+    "model": "Catalog.product",
+    "pk": 10,
+    "fields": {
+      "name": "Монитор",
+      "description": "Монитор",
+      "picture": "artworks-0UEDjfVijHcazAsJ-heQnZA-t500x500_sVmf1xk.jpg",
+      "category": 9,
+      "price": "22222",
+      "create_at": "2024-05-07T19:08:51.506Z",
+      "updated_at": "2024-05-07T19:08:51.506Z"
+    }
+  },
+  {
+    "model": "Catalog.product",
+    "pk": 11,
+    "fields": {
+      "name": "Наушники2",
+      "description": "Наушники2",
+      "picture": "artworks-0UEDjfVijHcazAsJ-heQnZA-t500x500_oH2Go23.jpg",
+      "category": 10,
+      "price": "33333",
+      "create_at": "2024-05-07T19:09:03.980Z",
+      "updated_at": "2024-05-07T19:09:03.981Z"
+    }
+  },
+  {
+    "model": "Catalog.product",
+    "pk": 12,
+    "fields": {
+      "name": "Монитор2",
+      "description": "Монитор2",
+      "picture": "shablon_SEKdllG.webp",
+      "category": 9,
+      "price": "44444",
+      "create_at": "2024-05-07T19:09:14.459Z",
+      "updated_at": "2024-05-07T19:09:14.459Z"
+    }
+  }
+]

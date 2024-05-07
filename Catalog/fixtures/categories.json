@@ -1,0 +1,18 @@
+[
+  {
+    "model": "Catalog.category",
+    "pk": 9,
+    "fields": {
+      "name": "Мониторы",
+      "description": "мониторы"
+    }
+  },
+  {
+    "model": "Catalog.category",
+    "pk": 10,
+    "fields": {
+      "name": "Наушники",
+      "description": "Наушники"
+    }
+  }
+]
