@@ -18,11 +18,13 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(verbose_name='Наименование', help_text="Введите наименование")
     description = models.TextField(verbose_name='Описание', help_text="Введите описание")
-    picture = models.ImageField(upload_to='DjangoORM/ProductPictures', blank=True, null=True)
+    picture = models.ImageField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, verbose_name='Категория',
                                  help_text="Введите категорию",
                                  null=True, blank=True, related_name="products")
     price = models.CharField(verbose_name='Цена', help_text="Введите цену")
+    manufactured_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата производства',
+                                     help_text="Введите дату производства")
     create_at = models.DateTimeField(blank=False, null=False, verbose_name='Дата создания',
                                      help_text="Введите дату создания")
     updated_at = models.DateTimeField(blank=False, null=False, verbose_name='Дата последнего изменения',
