@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'product/base.html' %}
 {% load my_tags %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for item in products %}
+            {% for item in object_list %}
                 <div class="col">
                     <div class="card shadow-sm">
                         <img height="250px" src="{{  item.picture | media_filter}}">
@@ -14,7 +14,7 @@
                                     <div class="btn-group">
                                         <a class="btn btn-primary" href="{% url 'shop:product_details' item.pk  %}" role="button">Подробнее</a>
                                     </div>
-                                    <small class="text-body-secondary">{{ product.create_at }}</small>
+                                    <small class="text-body-secondary">{{ item.create_at }}</small>
                                 </div>
                             </div>
                     </div>

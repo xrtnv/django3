@@ -1,0 +1,14 @@
+{% extends 'product/base.html' %}
+
+<title>{% block title %} Подтвердите удаление поста | eLectronic {% endblock %}</title>
+{% block content %}
+    <h1>Удаление поста</h1>
+    <p>Вы уверены, что хотите удалить пост "{{ object.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да</button>
+        <a href="{% url 'shop:blogpost_detail' object.slug %}" class="btn btn-secondary">Отмена</a>
+    </form>
+{% endblock %}
+{% block product_actions %}
+{% endblock %}
