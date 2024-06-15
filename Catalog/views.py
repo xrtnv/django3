@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from Catalog.models import Category, Product, BlogPost
+from Catalog.forms import ProductForm, BlogPostForm, VersionForm
+from Catalog.models import Category, Product, BlogPost, Version
 
 
 class HomeView(ListView):
@@ -30,6 +31,23 @@ class HomeView(ListView):
 class ProductListView(ListView):
     model = Product
     template_name = 'product/product_list.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = context["products"]
+
+        for product in products:
+            current_version = product.versions.filter(is_current=True).first()
+            if current_version:
+                product.current_version = {
+                    "version_number": current_version.version_number,
+                    "version_name": current_version.version_name,
+                }
+            else:
+                product.current_version = None
+
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -40,8 +58,29 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     template_name = 'product/product_form.html'
-    fields = ("name", "description", "picture", "category", "price")
+    form_class = ProductForm
     success_url = reverse_lazy('shop:product_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product/product_form.html'
+    success_url = reverse_lazy('shop:product_details')
+
+    def get_success_url(self):
+        return reverse("shop:product_details", args=[self.kwargs.get("pk")])
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        version_fromset = inlineformset_factory(Product, Version, VersionForm, extra=1)
+        if self.request.method == "POST":
+            context_data["formset"] = version_fromset(
+                self.request.POST, instance=self.object
+            )
+        else:
+            context_data["formset"] = version_fromset(instance=self.object)
+        return context_data
 
 
 class BlogPostListView(ListView):
@@ -68,7 +107,7 @@ class BlogPostDetailView(DetailView):
 
 class BlogPostCreateView(CreateView):
     model = BlogPost
-    fields = ("title", "content", "preview_image", "is_published")
+    form_class = BlogPostForm
     template_name = 'product/blogpost_form.html'
     success_url = reverse_lazy('shop:blogpost_list')
 
@@ -78,7 +117,7 @@ class BlogPostCreateView(CreateView):
 
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
-    fields = ("title", "content", "preview_image", "is_published")
+    form_class = BlogPostForm
     template_name = 'product/blogpost_form.html'
     context_object_name = 'blogposts'
     success_url = reverse_lazy('shop:blogpost_list')

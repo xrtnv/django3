@@ -1,20 +1,16 @@
-{% extends 'product/base.html' %}
+{% extends 'product/base.html'%}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <form class="row" method="post" enctype="multipart/form-data">
-                <div class="card">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        Создать
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<h2>{% if form.instance.pk %}Редактировать{% else %}Создать{% endif %} продукт</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <h3>Версии</h3>
+    {{ formset.management_form }}
+    {% for form in formset.forms %}
+    {{ form.as_p }}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  </form>
 {% endblock %}

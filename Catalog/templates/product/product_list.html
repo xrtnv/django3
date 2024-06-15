@@ -1,25 +1,34 @@
 {% extends 'product/base.html' %}
 {% load my_tags %}
 {% block content %}
-<div class="album py-5 bg-body-tertiary">
+    <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for item in object_list %}
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img height="250px" src="{{  item.picture | media_filter}}">
+                {% for item in object_list %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img height="250px" src="{{ item.picture | media_filter }}">
                             <div class="card-body">
                                 <p class="card-text">{{ item.name }}</p>
+                                {% if item.current_version %}
+                                    <p>Текущая версия: {{ item.current_version.version_name }}
+                                        ({{ item.current_version.version_number }})</p>
+                                {% else %}
+                                    <p>Текущая версия не указана</p>
+                                {% endif %}
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a class="btn btn-primary" href="{% url 'shop:product_details' item.pk  %}" role="button">Подробнее</a>
+                                        <a class="btn btn-primary" href="{% url 'shop:product_details' item.pk %}"
+                                           role="button">Подробнее</a>
+                                        <a class="btn btn-secondary"
+                                           href="{% url 'shop:product_update' item.pk %}" role="button">Редактировать</a>
                                     </div>
                                     <small class="text-body-secondary">{{ item.create_at }}</small>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-            {%  endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>

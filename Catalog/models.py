@@ -54,3 +54,17 @@ class BlogPost(models.Model):
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
         ordering = ['-created_at']
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='versions')
+    version_number = models.CharField(max_length=20)
+    version_name = models.CharField(max_length=255)
+    is_current = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Версия товара"
+        verbose_name_plural = "Версии товара"
+
+    def __str__(self):
+        return f"{self.version_name} ({self.version_number})"
