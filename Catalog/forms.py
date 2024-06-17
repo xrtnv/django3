@@ -16,17 +16,19 @@ class BlogPostForm(ModelForm):
 
     class Meta:
         model = BlogPost
-        fields = "__all__"
+        fields = ("title", "content", "preview_image", "is_published")
 
     def clean_title(self):
         title = self.cleaned_data["title"]
         if title in self.banned_words:
             raise forms.ValidationError("Используемые слова недопустимы")
+        return title
 
     def clean_content(self):
         content = self.cleaned_data["content"]
         if content in self.banned_words:
             raise forms.ValidationError("Используемые слова недопустимы")
+        return content
 
 
 class VersionFormMixin:
@@ -47,4 +49,3 @@ class VersionForm(ModelForm, VersionFormMixin):
     class Meta:
         model = Version
         fields = "__all__"
-
