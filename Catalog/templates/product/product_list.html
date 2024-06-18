@@ -5,6 +5,7 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for item in object_list %}
+                    {% if item.is_published %}
                     <div class="col">
                         <div class="card shadow-sm">
                             <img height="250px" src="{{ item.picture | media_filter }}">
@@ -20,14 +21,15 @@
                                     <div class="btn-group">
                                         <a class="btn btn-primary" href="{% url 'shop:product_details' item.pk %}"
                                            role="button">Подробнее</a>
-                                        <a class="btn btn-secondary"
-                                           href="{% url 'shop:product_update' item.pk %}" role="button">Редактировать</a>
+                                            <a class="btn btn-secondary"
+                                               href="{% url 'shop:product_update' item.pk %}" role="button">Редактировать</a>
                                     </div>
                                     <small class="text-body-secondary">{{ item.create_at }}</small>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -1,14 +1,22 @@
 {% extends 'product/base.html' %}
-
+{% block nav_link %}
+{% endblock %}
 {% block content %}
-<div class="container mt-1">
-    <h1 class="mb-3">Создание нового товара</h1>
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Добавить</button>
+        <section class="py-5 text-center container" >
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Создание нового товара</h1>
+                    <p class="lead text-body-secondary">Магазин электроники | eLectronic</p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p>
+                        <button type="submit" class="btn btn-primary my-2">Добавить</button>
+                    </p>
+                </div>
+            </div>
+        </section>
     </form>
 {% endblock %}
-{% block product_actions %}
-{% endblock %}
-</div>
+{#{% block product_actions %}#}
+{#{% endblock %}#}

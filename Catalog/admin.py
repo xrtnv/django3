@@ -15,18 +15,8 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "description")
 
 
-
-
-
 @admin.register(Version)
 class VersionAdmin(admin.ModelAdmin):
     list_display = ("id", "product", "version_name", "version_number")
     list_filter = ("product", "version_name", "version_number")
     search_fields = ("id", "product", "version_name")
-
-
-@admin.register(User)
-class VersionAdmin(admin.ModelAdmin):
-    list_display = ("id", "email", "phone_number", "country",)
-    list_filter = ("id", "email", "phone_number", "country",)
-    search_fields = ("id", "email", "phone_number", "country",)

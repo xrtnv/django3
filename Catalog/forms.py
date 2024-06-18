@@ -8,7 +8,13 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
-        exclude = ("views_counter",)
+        exclude = ("views_counter", "is_published", "owner")
+
+
+class ProductModerateForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ("description", "category", "is_published")
 
 
 class VersionFormMixin:

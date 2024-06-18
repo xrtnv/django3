@@ -1,6 +1,8 @@
 from autoslug import AutoSlugField
 from django.db import models
 
+from user.models import User
+
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок поста")
@@ -10,6 +12,8 @@ class BlogPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     is_published = models.BooleanField(default=False, verbose_name="Опубликованные посты")
     views_count = models.PositiveIntegerField(default=0, verbose_name="Количество просмотров")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogposts', verbose_name='Создатель',
+                              blank=True, null=True)
 
     def __str__(self):
         return self.title

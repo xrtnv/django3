@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
@@ -33,6 +34,10 @@ class BlogPostCreateView(CreateView):
     template_name = 'blogpost_form.html'
     success_url = reverse_lazy('blog:blogpost_list')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('blog:blogpost_detail', kwargs={'slug': self.object.slug})
 
@@ -46,6 +51,23 @@ class BlogPostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('blog:blogpost_detail', kwargs={'slug': self.object.slug})
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not self.request.user == obj.owner and not self.request.user.is_superuser:
+            raise PermissionDenied("Недостаточно прав.")
+        return obj
+
+    def get_form_class(self):
+        user = self.request.user
+        if self.object.owner == user or user.is_superuser or user.has_perms([
+            "shop.can_cancel_publication",
+            "shop.can_change_description_any",
+            "shop.can_change_category_any"
+        ]):
+            return BlogPostForm
+        else:
+            raise PermissionDenied("Недостаточно прав.")
 
 
 class BlogPostDeleteView(DeleteView):

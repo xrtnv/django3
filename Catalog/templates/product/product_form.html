@@ -1,16 +1,30 @@
-{% extends 'product/base.html'%}
+{% extends 'product/base.html' %}
+{% block nav_link %}
+{% endblock %}
 {% block content %}
-<h2>{% if form.instance.pk %}Редактировать{% else %}Создать{% endif %} продукт</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post" enctype="multipart/form-data">
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">{% if form.instance.pk %}Редактирование товара{% else %}Создание нового
+                        товара{% endif %} </h1>
+                    <p class="lead text-body-secondary">Магазин электроники | eLectronic</p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-    <h3>Версии</h3>
-    {{ formset.management_form }}
-    {% for form in formset.forms %}
-    {{ form.as_p }}
-    {% endfor %}
+                {% if formset.forms is not empty %}
+                <h3>Версии</h3>
+                {{ formset.management_form }}
+                {% for form in formset.forms %}
+                    {{ form.as_p }}
+                {% endfor %}
+                {% endif %}
 
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-  </form>
+                    <p>
+                        <button type="submit" class="btn btn-primary my-2">Добавить</button>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </form>
 {% endblock %}

@@ -51,7 +51,7 @@ class PasswordResetView(FormView):
         email = form.cleaned_data['email']
         try:
             user = User.objects.get(email=email)
-            user.is_active = False
+            user.is_active = True
             new_password = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
             user.password = make_password(new_password)
             user.save()

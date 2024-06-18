@@ -1,6 +1,4 @@
 from django.db import models
-from autoslug import AutoSlugField
-
 from user.models import User
 
 
@@ -21,7 +19,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(verbose_name='Наименование', help_text="Введите наименование")
     description = models.TextField(verbose_name='Описание', help_text="Введите описание")
-    picture = models.ImageField(blank=True, null=True)
+    picture = models.ImageField(verbose_name='Изображение',blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, verbose_name='Категория',
                                  help_text="Введите категорию",
                                  null=True, blank=True, related_name="products")
@@ -32,11 +30,17 @@ class Product(models.Model):
                                       help_text="Введите дату создания последнего изменения")
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products', verbose_name='Создатель',
                               blank=True, null=True)
+    is_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ['name', 'description', 'category', 'price', 'create_at', 'updated_at']
+        permissions = [
+            ("can_cancel_publication", "Может отменять публикацию продукта"),
+            ("can_change_description_any", "Может менять описание любого продукта"),
+            ("can_change_category_any", "Может менять категорию любого продукта"),
+        ]
 
     def __str__(self):
         return self.name
