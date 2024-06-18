@@ -12,8 +12,12 @@
                         <li><a href="{% url 'shop:home' %}" class="text-white">Главная</a></li>
                         <li><a href="{% url 'shop:product_list' %}" class="text-white">Товары</a></li>
                         <li><a href="{% url 'shop:blogpost_list' %}" class="text-white">Блог</a></li>
-                        <li><a href="" class="text-white">Зарегистрироваться</a></li>
-                        <li><a href="" class="text-white">Войти</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'user:logout' %}" class="text-white">Выход</a></li>
+                        {% else %}
+                            <li><a href="{% url 'user:register' %}" class="text-white">Зарегистрироваться</a></li>
+                            <li><a href="{% url 'user:login' %}" class="text-white">Войти</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

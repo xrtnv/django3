@@ -1,0 +1,26 @@
+{% extends 'product/base.html' %}
+{% block nav_link %}
+{% endblock %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        <section class="py-5 text-center container" >
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Авторизация</h1>
+                    <p class="lead text-body-secondary">Магазин электроники | eLectronic</p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p>
+                        <button type="submit" class="btn btn-primary my-2">Войти</button>
+                    <a href="{% url 'user:register' %}" class="btn btn-outline-secondary my-2">Регистрация</a>
+                    </p>
+                    <h4 class="fw-lighter">
+                        <a>Забыли пароль?</a>
+                    </h4>
+                    <a href="{% url 'user:password_reset' %}" class="btn">Восстановить</a>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}
+
