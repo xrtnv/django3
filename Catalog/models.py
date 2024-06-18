@@ -1,6 +1,8 @@
 from django.db import models
 from autoslug import AutoSlugField
 
+from user.models import User
+
 
 class Category(models.Model):
     name = models.CharField(verbose_name='Наименование категории', help_text="Введите наименование категории",
@@ -28,6 +30,8 @@ class Product(models.Model):
                                      help_text="Введите дату создания")
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата последнего изменения',
                                       help_text="Введите дату создания последнего изменения")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products', verbose_name='Создатель',
+                              blank=True, null=True)
 
     class Meta:
         verbose_name = 'Товар'
