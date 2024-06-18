@@ -11,9 +11,9 @@
             <p>Создано: {{ blogpost.created_at }}</p>
             <p>Просмотров: {{ blogpost.views_count }}</p>
             <p>Опубликовано: {% if blogpost.is_published %}Да{% else %}Нет{% endif %}</p>
-            <a href="{% url 'shop:blogpost_update' blogpost.slug %}" class="btn btn-warning">Редактировать</a>
-            <a href="{% url 'shop:blogpost_delete' blogpost.slug %}" class="btn btn-danger">Удалить</a>
-            <a href="{% url 'shop:blogpost_list' %}" class="btn btn-primary">Назад</a>
+            <a href="{% url 'blog:blogpost_update' blogpost.slug %}" class="btn btn-warning">Редактировать</a>
+            <a href="{% url 'blog:blogpost_delete' blogpost.slug %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'blog:blogpost_list' %}" class="btn btn-primary">Назад</a>
     </div>
 {% endblock %}
 {% block product_actions %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Catalog.models import Product, Category, BlogPost, Version
+from Catalog.models import Product, Category, Version
 from user.models import User
 
 
@@ -15,10 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "description")
 
 
-@admin.register(BlogPost)
-class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "slug", "content", "created_at", "is_published", "views_count")
-    search_fields = ("title", "content")
+
 
 
 @admin.register(Version)

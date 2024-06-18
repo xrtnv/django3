@@ -7,7 +7,7 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Да</button>
-        <a href="{% url 'shop:blogpost_detail' object.slug %}" class="btn btn-secondary">Отмена</a>
+        <a href="{% url 'blog:blogpost_detail' object.slug %}" class="btn btn-secondary">Отмена</a>
     </form>
 {% endblock %}
 {% block product_actions %}
