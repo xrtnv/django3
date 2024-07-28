@@ -2,7 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from Catalog.apps import CatalogConfig
-from Catalog.views import ProductListView, ProductDetailView, ProductCreateView, HomeView, ProductUpdateView
+from Catalog.views import ProductListView, ProductDetailView, ProductCreateView, HomeView, ProductUpdateView, \
+    CategoryListView
 
 app_name = CatalogConfig.name
 
@@ -12,5 +13,5 @@ urlpatterns = [
                   path('product/<int:pk>/', ProductDetailView.as_view(), name='product_details'),
                   path('product/create/', ProductCreateView.as_view(), name='product_create'),
                   path('product/update/<int:pk>/', ProductUpdateView.as_view(), name='product_update'),
-
+                  path('categories/', CategoryListView.as_view(), name='category_list'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

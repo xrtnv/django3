@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import ListView
+from .services import get_cached_categories
 from Catalog.forms import ProductForm, VersionForm
-from Catalog.models import Category, Product, Version
+from Catalog.models import Product, Version
 
 
 class HomeView(ListView):
@@ -30,6 +31,14 @@ class HomeView(ListView):
         return context
 
 
+class CategoryListView(ListView):
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        return get_cached_categories()
+
+
 class ProductListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('user:login')
     model = Product
@@ -51,6 +60,9 @@ class ProductListView(LoginRequiredMixin, ListView):
                 product.current_version = None
 
         return context
+
+    def get_queryset(self):
+        return get_cached_categories()
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
