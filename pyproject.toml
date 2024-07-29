@@ -13,6 +13,8 @@ ipython = "^8.24.0"
 django-autoslug = "^1.9.9"
 django-crispy-forms = "^2.1"
 django = "4.2.2"
+redis = "^4.0.0"
+python-dotenv = "^1.0.0"
 
 
 [build-system]
